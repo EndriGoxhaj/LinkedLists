@@ -26,6 +26,35 @@ class linkedList {
       this.node.next = currentRoot;
     }
   }
+  size(currentNode = this.node, size = 0) {
+    if (!currentNode.root) return console.log(size);
+    if (!currentNode.next) return console.log(++size);
+    else {
+      size++;
+      currentNode = currentNode.next;
+      this.size(currentNode, size);
+    }
+  }
+  head() {
+    console.log(this.node);
+  }
+  tail(currentNode = this.node) {
+    if (!currentNode.root) return null;
+    if (!currentNode.next) return console.log(currentNode);
+    else {
+      currentNode = currentNode.next;
+      this.tail(currentNode);
+    }
+  }
+  at(index, currentNode = this.node, i = 0) {
+    if (!currentNode.root) return null;
+    if (i == index) return console.log(currentNode);
+    else {
+      currentNode = currentNode.next;
+      i++;
+      this.at(index, currentNode, i);
+    }
+  }
   print(currentNode = this.node) {
     if (!currentNode.root) return console.log("empty");
     if (!currentNode.next) {
@@ -38,6 +67,7 @@ class linkedList {
   }
 }
 let list = new linkedList();
+list.size();
 list.print();
 list.append("hello");
 list.append("hi");
@@ -45,3 +75,7 @@ list.append("ckemi");
 list.print();
 list.prepend("opa");
 list.print();
+list.size();
+list.head();
+list.tail();
+list.at(2);
