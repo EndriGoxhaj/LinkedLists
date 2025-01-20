@@ -55,14 +55,45 @@ class linkedList {
       this.at(index, currentNode, i);
     }
   }
-  print(currentNode = this.node) {
+  pop(currentNode = this.node, previousNode) {
+    if (!currentNode.root) return null;
+    if (!currentNode.next) {
+      return (previousNode.next = null);
+    } else {
+      previousNode = currentNode;
+      currentNode = currentNode.next;
+      this.pop(currentNode, previousNode);
+    }
+  }
+  contains(value, currentNode = this.node) {
+    if (!currentNode.root) return null;
+    if (currentNode.root != value && !currentNode.next)
+      return console.log("doesnt exist in list");
+    if (currentNode.root === value) return console.log("true");
+    else {
+      currentNode = currentNode.next;
+      this.contains(value, currentNode);
+    }
+  }
+  find(value, currentNode = this.node) {
+    if (!currentNode.root) return console.log("list empty");
+    if (currentNode.root != value && !currentNode.next)
+      return console.log("value doesnt exist");
+    if (currentNode.root === value) return console.log(currentNode);
+    else {
+      currentNode = currentNode.next;
+      this.find(value, currentNode);
+    }
+  }
+  print(currentNode = this.node, string = "") {
     if (!currentNode.root) return console.log("empty");
     if (!currentNode.next) {
-      console.log(currentNode.root);
+      string += `( ${currentNode.root} ) -> ${currentNode.next}`;
+      console.log(string);
     } else {
-      console.log(currentNode.root);
+      string += `( ${currentNode.root} ) -> `;
       currentNode = currentNode.next;
-      this.print(currentNode);
+      this.print(currentNode, string);
     }
   }
 }
@@ -79,3 +110,7 @@ list.size();
 list.head();
 list.tail();
 list.at(2);
+list.pop();
+list.print();
+list.contains("helo");
+list.find("hello");
