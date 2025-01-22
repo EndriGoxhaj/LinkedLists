@@ -5,7 +5,7 @@ class Node {
   }
 }
 
-class linkedList {
+class LinkedList {
   constructor(node = new Node()) {
     this.node = node;
   }
@@ -96,21 +96,42 @@ class linkedList {
       this.print(currentNode, string);
     }
   }
+
+  insertAt(value, index, currentNode = this.node, previousNode, i = 0) {
+    if (!currentNode.root) return console.log("null");
+    if (index === 0) {
+      this.node = new Node(value);
+      this.node.next = currentNode;
+    }
+    if (index === i) {
+      previousNode.next = new Node(value);
+      let nextNode = previousNode.next;
+      nextNode.next = currentNode;
+    } else {
+      previousNode = currentNode;
+      currentNode = currentNode.next;
+      i++;
+      this.insertAt(value, index, currentNode, previousNode, i);
+    }
+  }
+  removeAt(index, currentNode = this.node, previousNode, i = 0) {
+    if (!currentNode.root) return console.log("null");
+    if (index === 0) this.node = currentNode.next;
+    if (index === i) {
+      previousNode.next = currentNode.next;
+    } else {
+      previousNode = currentNode;
+      currentNode = currentNode.next;
+      i++;
+      this.removeAt(index, currentNode, previousNode, i);
+    }
+  }
 }
-let list = new linkedList();
-list.size();
+let list = new LinkedList();
+list.append("dog");
+list.append("cat");
+list.append("parrot");
+list.append("hamster");
+list.append("snake");
+list.append("turtle");
 list.print();
-list.append("hello");
-list.append("hi");
-list.append("ckemi");
-list.print();
-list.prepend("opa");
-list.print();
-list.size();
-list.head();
-list.tail();
-list.at(2);
-list.pop();
-list.print();
-list.contains("helo");
-list.find("hello");
